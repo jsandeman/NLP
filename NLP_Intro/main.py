@@ -1,9 +1,25 @@
-import re
+import numpy as np
+import pandas as pd
 
+sentence = "Thomas Jefferson began building Monticello at the age of 26."
 
-r = "(hi|hello|hey)[ ]*([a-z]*)"
-re.match(r, 'Hello Rosa', flags=re.IGNORECASE)
-re.match(r, "hi ho, hi ho, it's off to work ...", flags=re.IGNORECASE)
-re.match(r, "hey, what's up", flags=re.IGNORECASE)
+token_sequence = sentence.split()
+vocab = sorted(set(token_sequence))
+print(', '.join(vocab))
+
+num_tokens = len(token_sequence)
+vocab_size = len(vocab)
+
+onehot_vectors = np.zeros((num_tokens,
+  vocab_size), int)
+print(onehot_vectors)
+
+for i, word in enumerate(token_sequence):
+  onehot_vectors[i, vocab.index(word)] = 1
+
+print(onehot_vectors)
+
+onehot_df = pd.DataFrame(onehot_vectors, columns=vocab)
+print(onehot_df)
 
 
